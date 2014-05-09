@@ -11,7 +11,7 @@
     global $traza;
     global $ns;
     /*Titulo Aplicacion*/
-    $titulo="-- InfoUnerg.Net --";
+    $titulo="-- Mi Aplicación ACHITUN --";
     /*Modulo de Inicio*/
     $inicio="";
     /*Mi estilo personal afecta toda la aplicacion*/
@@ -21,7 +21,7 @@
     $script=array();
     
     /* Mostrar o no warning, errors, etc de php*/
-    //error_reporting(0);
+    error_reporting(0);
     
     /*COnfiguracion de la conexion a la Base de datos*/
        
@@ -29,7 +29,7 @@
     $usuario="root";
     $clave="local";
     $servidor="localhost";
-    $bd="System_RR";
+    $bd="";
     
     /*nombre de session*/
     $ns="achitun";
