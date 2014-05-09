@@ -1,0 +1,41 @@
+<?php
+	include_once "nucleo/clases/clsSes.php";
+	include_once "nucleo/clases/clsBd.php";
+	include_once "nucleo/clases/fncVarias.php";
+	include_once "nucleo/clases/auxiliares.php";
+	if($_GET["m"]!=null)
+		$app=$_GET["m"];
+	else
+		$app=index;
+	include "app/modelos/M$app.php";
+	include "app/vistas/V$app.php";
+	include "app/controles/C$app.php";
+    
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+    <title>( = FREBIN-GUARICO = )</title>
+    <link rel="Shortcut Icon" href="img/logo.ico" type="image/x-icon" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="generator" content="Geany 0.19.1" />
+    <link href="estilos/jquery.validity.css" rel="stylesheet" type="text/css"/>
+    <link href="estilos/index.css" rel="stylesheet" type="text/css"/>
+    <link href="estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-1.7.2.min" type="text/javascript"></script>
+    <script src="js/jquery.form.js" type="text/javascript"></script>
+    <script src="js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+    <script src="js/jquery-anexos.js" type="text/javascript"></script>
+    
+</head>
+<body>
+    <div id="encabezado"><a href="./"><img src="img/enca2.png" alt="logo_encabezado"/></a></div>
+    <div id="secciones">
+        <a class='primero'></a>
+        <a href="./" title="Frebin">Principal</a>
+        <a href="?m=documentos" title="Documentos Frebin">Documentos</a>
+        <a href="?m=noticias" title="Noticias Frebin" >Noticias</a>
+        <a href="?m=galerias" title="Galeria de Imagenes" >Galeria</a>
+    </div>
+    <div id="cuerpo">
