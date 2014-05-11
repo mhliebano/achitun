@@ -1,9 +1,0 @@
-<?php
-
-	/*COnfiguracion de la conexion a la Base de datos*/
-	$usuario="root";
-	$clave="local";
-    $servidor="localhost";
-	$bd="bd_frebin";
-	
-?>
