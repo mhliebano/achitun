@@ -11,7 +11,7 @@
     global $traza;
     global $ns;
     /*Titulo Aplicacion*/
-    $titulo="-- Mi Aplicación ACHITUN --";
+    $titulo=":-- Mi Aplicación ACHITUN --:";
     /*Modulo de Inicio*/
     $inicio="";
     /*Mi estilo personal afecta toda la aplicacion*/
