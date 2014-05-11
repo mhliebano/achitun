@@ -358,6 +358,8 @@ function fEnviadoPost(){
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fEnviadoPost</p>";
     $data='';
+    if (count($_POST)==0)
+        return null;
     foreach ($_POST as  $key=>$value) {
         $m=substr($value,3,2);
         $sp1=substr($value,2,1);
@@ -546,6 +548,9 @@ function fGuardar($tabla=null,$accion=0,$msg=true){
     
     $cantCampos=0;
     $cantDatos=0;
+    if (count(fEnviadoPost())<1){
+        return;
+    }
 switch($accion){
     case 0:
         foreach ($_POST as  $key => $value) {
