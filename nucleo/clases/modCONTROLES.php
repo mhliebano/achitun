@@ -270,7 +270,7 @@ function fCaptcha($ruta='nucleo/tmp/'){
 	$matrix = array(array(1, 1, 1), array(1.0, 7, 1.0), array(1, 1, 1));
 	imageconvolution($captcha, $matrix, 16, 32);
 	imagejpeg($captcha,$imagen);
-    return "<div id='cpt'><img src='$imagen' class='captcha' id='captcha'/>".fCampo(capt,"Ingrese el Texto de la Imagen",texto).fAjax(captcha,click,captcha,cpt,null)."</div>";
+    return "<div id='cpt'><img src='$imagen' class='captcha' id='captcha'/>".fCampo(capt,"Ingrese el Texto de la Imagen",texto).fAjax(captcha,click,captcha,cpt,null,"u=0")."</div>";
 }
 
 function fEliminaCaptcha($ruta='nucleo/tmp/'){
@@ -554,6 +554,8 @@ function fGuardar($tabla=null,$accion=0,$msg=true){
 switch($accion){
     case 0:
         foreach ($_POST as  $key => $value) {
+                if($key=="capt")
+                    continue;
                 if(!is_numeric($value)){
                     $m=substr($value,3,2);
                     $b1=substr($value,2,1);
@@ -2106,11 +2108,11 @@ function flog($txt){
     $usu=(fUsuarioID()==0?"Usuario Anonimo":fUsuarioID());
     $txt="{".$usu."}{".$txt."}{".fHoy("Y/m/d H:i:s")."}{".$_SERVER['REMOTE_ADDR']."}{".$_SERVER['HTTP_USER_AGENT']."}\n";
     $archivo=fFechaMysql(fHoy())."log";
-    $p=substr(sprintf('%o', fileperms('nucleo/tmp/.log/'.$archivo.'.log')), -4);
+    $p=substr(sprintf('%o', fileperms('nucleo/.log/'.$archivo.'.log')), -4);
     if($p!=0333){
-        chmod('nucleo/tmp/.log/'.$archivo.'.log',0333);
+        chmod('nucleo/.log/'.$archivo.'.log',0333);
     }
-    $fp = fopen('nucleo/tmp/.log/'.$archivo.'.log', 'a');
+    $fp = fopen('nucleo/.log/'.$archivo.'.log', 'a');
     fwrite($fp, $txt);
     fclose($fp);
 }
