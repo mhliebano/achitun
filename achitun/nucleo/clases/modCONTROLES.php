@@ -1616,10 +1616,7 @@ function fSubirImagen($ruta=null,$nombreImagen=null,$exte=null){
                         break;
                   }
                   if ($nombreImagen==null){
-                    if($exte==null)
-                        $n=$nom.".".$ext;
-                    else
-                        $n=$nom.".".$exte;
+                        $n=$non;
                   }else{
                       if($exte==null)
                         $n=$nombreImagen.".".$ext;
