@@ -836,12 +836,12 @@ function fLogin(){
     global $traza;
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fLogin</p></div>";
-    fEvento("fValidar",90);
-    $dir="m=".$_GET['m']."&v=".$_GET['v']."&id=".$_GET['id']."&e=90";
+    fEventoClick("fValidar");
+    $dir="m=".$_GET['m']."&v=".$_GET['v']."&id=".$_GET['id'];
     $a= fFormulario("flogin",$dir);
         $a.= fCampo('usur','Usuario','texto');
         $a.= fCampo('clav','Clave','clave');
-        $a.= fCampo('bot','Entrar','submit');
+        $a.= fCampo('boton','Entrar','submit');
     $a.= fFinFormulario();
     $a.= fValidacionCampos("flogin","usur;Indique Usuario","clav;Indique Clave");
     return $a;
