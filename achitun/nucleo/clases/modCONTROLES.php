@@ -2058,17 +2058,9 @@ function vistas($defecto=0){
     $fun=$_GET['v'];
     if($fun!=null){
         if(!$objSes->fProtegido()){
-                if($_GET['e']==98){
-                    $fun=$_GET['v'];
-                }else{
-                    $fun="P_".$fun;
-                }
+            $fun="P_".$fun;
         }else{
-            if($_GET['e']==98){
-                $fun=$_GET['v'];
-            }else{
-                $fun="L_".$fun;
-            }
+            $fun="L_".$fun;
         }
         if(function_exists($fun)){
             echo eval($fun());
