@@ -908,6 +908,9 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
     global $traza;
     global $mascara;
     
+     if($_GET['e']==94)
+        fEliminar();
+    
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fMostrarTabla</p>";
     
@@ -1006,7 +1009,7 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
     if(!is_null($el)){
         $a.= "<th>Anular</th>";
         if($el==0)
-            $_SESSION['el']=1;
+            $el=94;
         else
             $el=$el;
     } 
@@ -1020,9 +1023,9 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
                 if(in_array($i,$cmp))
                     $a.= "<td class='td$i'>$o[$i]</td>";
             if(!is_null($ed))
-                $a.= "<td style='text-align:center' class='td$i'><a href='?m=".$_GET['m']."&v=".$vista."&id=".$o[$ids[0]]."&itemid=".fItemId()."&e=95'><img src='nucleo/iconos/table_edit.png'</a></td>";
+                $a.= "<td style='text-align:center' class='td$i'><a href='?m=".$_GET['m']."&v=".$vista."&id=".$o[$ids[0]]."&itemid=".fItemId()."&e=95'><img src='nucleo/iconos/table_edit.png'/></a></td>";
             if(!is_null($el))
-                $a.= "<td style='text-align:center' class='td$i'><a href='?m=".$_GET['m']."&v=".$_GET['v']."&id=".$o[$ids[0]]."&itemid=".fItemId()."&e=$el'><img src='nucleo/iconos/table_delete.png'</a></td>";
+                $a.= "<td style='text-align:center' class='td$i'><a href='?m=".$_GET['m']."&v=".$_GET['v']."&id=".$o[$ids[0]]."&itemid=".fItemId()."&e=$el'><img src='nucleo/iconos/table_delete.png'/></a></td>";
             if($enlace!=null)
                 $a.= "<td style='text-align:center' class='td$i'><a href='?m=".$enl[0]."&v=".$enl[1]."&id=".$o[$ids[0]]."&e=".$enl[3]."'><img src='nucleo/iconos/".$enl[2].".png'/></a></td>";
             $a.= "</tr>";
@@ -2049,9 +2052,6 @@ function vistas($defecto=0){
         fGuardar(null,0);
     }
    
-    if($_SESSION['el']==1)
-        fEliminar();
-
     if($_GET['e']==95){
         $_SESSION['ed']=1;
     }else{
