@@ -526,7 +526,7 @@ function fGuardar($tabla=null,$accion=0,$msg=true){
     global $objBd;
     global $traza;
     $vari=func_get_args();
-
+    $_SESSION['gr']=0;
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fGuardar</p><p>Modo Edicion: ".fEdicion()."</p>";
     
@@ -1251,11 +1251,11 @@ function fNuevo($tabla=null,$rel=null,$auto=true,$campos=null,$data=null,$cap=fa
                     $traza.="<p>Buscando Registro en la BD</p>";
             $cr="$tabla.id;".$id;
             $registro=fBuscar(false,$tabla,false,$cr);
-            $r="m=".$_GET['m']."&v=".$_GET['v']."&id=".$id."&itemid=".$item."&e=99";
+            $r="m=".$_GET['m']."&v=".$_GET['v']."&id=".$id."&itemid=".$item;
         }else{
             $id=  ($id == null) ? '0' : $id;
             $item= ($item == null) ? '0' : $item;
-            $r="m=".$_GET['m']."&v=".$_GET['v']."&id=".$id."&itemid=".$item."&e=99";
+            $r="m=".$_GET['m']."&v=".$_GET['v']."&id=".$id."&itemid=".$item;
         }
     }
     $objBd->fDatos_tabla($tabla);
@@ -1474,6 +1474,7 @@ function fNuevo($tabla=null,$rel=null,$auto=true,$campos=null,$data=null,$cap=fa
     $a.= fValidar_CamposAutomatico($valido,$tipo);
     if (depuracion())
         $traza.="</div>";
+    $_SESSION['gr']=1;
     return $a;
 }
 
@@ -2042,8 +2043,8 @@ function fVerificaTabla($tabla=null,$msg=true){
 
 function vistas($defecto=0){
     global $objSes;
-   
-    if($_GET['e']==99){
+    
+    if($_SESSION['gr']==1){
         fGuardar(null,0);
     }
    
@@ -2081,7 +2082,7 @@ function vistas($defecto=0){
             index();
         }
     }
-   
+   echo $_SESSION['gr'];
 }
 
 function vistas_auxiliares($vista,$auxiliar){
