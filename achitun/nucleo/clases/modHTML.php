@@ -182,6 +182,7 @@ function fIconoEliminar($modulo=null,$vista=null,$id=0,$itemid=0,$evento=null,$d
         $a= "<a href='?m=$modulo&amp;v=$vista&amp;id=$id&amp;itemid=$itemid&amp;e=94' class='$clase'><img src='nucleo/iconos/table_delete.png' alt='editar'/></a>";
     else
         $a= "<a href='?m=$modulo&amp;v=$vista&amp;id=$id&amp;itemid=$itemid&amp;e=$evento' class='$clase'><img src='nucleo/iconos/table_delete.png' alt='editar'/></a>";
+    $_SESSION['el']=1;
     return $a;
 }
 

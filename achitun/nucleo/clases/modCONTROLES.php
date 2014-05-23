@@ -305,6 +305,7 @@ function fEliminar($tabla=null,$msg=true,$id=0){
     global $objBd;
     global $datos;
     global $traza;
+    $_SESSION['el']=0;
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fEliminar</p>";
     if($id==0)
@@ -1005,7 +1006,7 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
     if(!is_null($el)){
         $a.= "<th>Anular</th>";
         if($el==0)
-            $el=94;
+            $_SESSION['el']=1;
         else
             $el=$el;
     } 
@@ -2048,7 +2049,7 @@ function vistas($defecto=0){
         fGuardar(null,0);
     }
    
-    if($_GET['e']==94)
+    if($_SESSION['el']==1)
         fEliminar();
 
     if($_GET['e']==95){
