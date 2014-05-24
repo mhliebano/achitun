@@ -908,7 +908,9 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
     global $traza;
     global $mascara;
     
-     
+    if($_GET['e']==94 && !is_null($el)){
+            fEliminar();
+    } 
     
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fMostrarTabla</p>";
@@ -1004,11 +1006,10 @@ function fMostrarTabla($tabla=null,$id=null,$campos=null,$crit=null,$ed=null,$el
         else
             $vista=$ed;
     }
-
+    
     if(!is_null($el)){
         $a.= "<th>Anular</th>";
-        if($_GET['e']==94)
-            fEliminar();
+        
         if($el==0)
             $el=94;
         else
