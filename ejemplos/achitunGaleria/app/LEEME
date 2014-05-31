@@ -1,0 +1,11 @@
+Implementacion de una galeria de imagenes usando SlideShow
+
+Con este ejemplo se muestra como usar escritos de Javascript creados por el usuario e insertados dentro de Achitun.
+
+1) En el modelo se observa que se llama a los dos archivos javascript y al archivo css qeu da el estilo a la galeria
+
+2) En la vista la implementacion del codigo HTML que muestra la galeria
+
+3) En el directorio "conf" estan los archivos de usuario (javascript y css)
+
+*****GRACIAS AL PROF. MSC MIGUEL PADRON (mpadron@unerg.edu.ve) POR ELABORAR ESTE EJEMPLO******

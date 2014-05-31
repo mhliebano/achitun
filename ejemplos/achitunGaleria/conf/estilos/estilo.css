@@ -1,0 +1,43 @@
+/*GAleria Imagen*/
+body {
+    background:#eee;
+    margin:0;
+    padding:0;
+    font-size:16px;
+    font-family: helvetica,sans-family;
+}
+.slideshow {
+    background:#FFF;
+    width:500px;
+    border:1px #000 solid;
+    margin:20px auto;
+    padding:15px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.slideshow ul {
+    width:500px;
+    height:auto;
+    min-height: 335px;
+    overflow: hidden;
+    position:relative;
+    padding:0;
+    margin:0;
+}
+.slideshow li {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    list-style: none;
+}
+.slideshow li img {
+    width: 100%
+}
+.slideshow li:first-child {
+    display:block;
+}
+.slideshow .counter {
+    text-align:right;
+    width:100%;
+}
