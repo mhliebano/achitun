@@ -549,11 +549,13 @@ function fGuardar($tabla=null,$accion=0,$msg=true){
     
     $cantCampos=0;
     $cantDatos=0;
-    if (count(fEnviadoPost())<1){
-        return;
-    }
+    
 switch($accion){
     case 0:
+        if (count(fEnviadoPost())<1){
+            $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>Parametros POst -1</p>";
+            return;
+        }
         foreach ($_POST as  $key => $value) {
                 if($key=="capt")
                     continue;
