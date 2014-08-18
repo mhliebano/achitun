@@ -235,7 +235,7 @@ function fSelectFormBD($nombre,$etiqueta,$tablas,$campo=null,$seleccion=0,$multi
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModHTML: LLamado a la funcion fSelectFormBD: ";
     $objBd->fDatos_tabla($tablas);
     $i=0;
-    if($campo==null){
+    if(is_null($campo)){
         while($a=$objBd->fConsultaArreglo()){
             if($a[3]!=NULL){
                 $campo=$i;
