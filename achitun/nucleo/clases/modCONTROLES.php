@@ -81,6 +81,14 @@ function fBuscar($multiple=true,$tabla=null,$msg=true){
                 $op="<>";
                 $opciones[0]=substr($opciones[0],1,strlen($opciones[0]));
             }
+            if(substr($opciones[0],0,1)==">"){
+                $op=">";
+                $opciones[0]=substr($opciones[0],1,strlen($opciones[0]));
+            }
+            if(substr($opciones[0],0,1)=="<"){
+                $op="<";
+                $opciones[0]=substr($opciones[0],1,strlen($opciones[0]));
+            }
             if($i==func_num_args()-1){
                 switch ($opciones[0]){
                     case "id":
@@ -483,6 +491,19 @@ function fExisteTabla($tabla){
         if (depuracion())
             $traza.="<p>La tabla No Existe</p></div>";
         return 1;
+    }
+}
+
+function fExtension($extension){
+    global $traza;
+    if(is_null($extension)){
+        if (depuracion())
+            $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fExtension</p><p>No se ha definido el nombre de la extensión</p>";
+        return 1;
+    }else{
+        if (depuracion())
+        $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fExtension</p><p>Insertada la extension $extension</p>";
+        include ("conf/plugins/".$extension);
     }
 }
 
@@ -2087,7 +2108,7 @@ function vistas($defecto=0){
             index();
         }
     }
-   echo $_SESSION['gr'];
+
 }
 
 function vistas_auxiliares($vista,$auxiliar){
