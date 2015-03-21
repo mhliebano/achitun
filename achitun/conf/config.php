@@ -18,7 +18,7 @@
     $estilo=array();
 
     /*Mi javascript personal afecta toda la aplicacion*/
-    $script=array();
+    $script=array("");
     
     /* Mostrar o no warning, errors, etc de php*/
     error_reporting(0);

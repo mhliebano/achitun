@@ -18,7 +18,6 @@
     You should have received a copy of the GNU General Public License
     along with Achitun.  If not, see <http://www.gnu.org/licenses/>
  */
-global $crg;
 function fpreCarga(){
     $a= '$(document).ready(function(){
         $("body").css({"overflow-y":"hidden"});
@@ -38,12 +37,6 @@ function fpreCarga(){
      return $a;       
 }
 function fAcordeon($id){
-        global $crg;
-       if($crg==0){
-            echo '<script src="nucleo/js/jquery-ui.js" type="text/javascript"></script> ';
-            echo '<link href="nucleo/estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>';
-            $crg=1;
-        }
         $a='<script>$(function(){$( "#'.$id.'" ).accordion({heightStyle: "content"});});</script><div id="'.$id.'">';
         $vari=func_get_args();
         if(func_num_args()>1){
@@ -74,18 +67,12 @@ function fAjax($idCon,$evento,$funcion,$capa,$valor=null,$url){
                     }
                 }
     if($valor!=null)
-		$a.= "};e=\$('$valor').val();\$.ajax({data:parametros,url:'?m=".$_GET['m']."&ajax=$funcion&$url&control='+e,type:  'post',beforeSend: function (){\$('#$capa').html('Procesando, espere por favor...');},success:  function (response){\$('#$capa').html(response);},error: function(objeto, quepaso, otroobj){\$('#$capa').html('Ocurrio un error, rayos!!');}});});});</script>";
+		$a.= "};\$.ajax({data:new FormData($('#".$valor."')[0]),url:'?m=".$_GET['m']."&ajax=$funcion&$url',type:  'post', cache: false,contentType: false, processData: false,beforeSend: function (){\$('#$capa').html('Procesando, espere por favor...');},success:  function (response){\$('#$capa').html(response);},error: function(objeto, quepaso, otroobj){\$('#$capa').html('Ocurrio un error, rayos!!');}});});});</script>";
 	else
 		$a.= "};\$.ajax({data:parametros,url:'?m=".$_GET['m']."&ajax=$funcion&$url',type:  'post',beforeSend: function (){\$('#$capa').html('Procesando, espere por favor...');},success:  function (response){\$('#$capa').html(response);},error: function(objeto, quepaso, otroobj){\$('#$capa').html('Ocurrio un error, rayos!!');}});});});</script>";
 return $a;
 }
 function fAlerta($id,$titulo,$contenido,$ancho,$largo,$objeto=null,$evento=null,$animado=true,$modal=true,$efc=0){
-       global $crg;
-       if($crg==0){
-            echo '<script src="nucleo/js/jquery-ui.js" type="text/javascript"></script> ';
-            echo '<link href="nucleo/estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>';
-            $crg=1;
-        }
        $anm=array("blind","bounce","clip","drop","explode","fade","fold","puff","pulsate","shake","slide");
        if($animado==false && $modal==false){
             if($objeto!=null){
@@ -131,12 +118,6 @@ function fBloquearControl($id,$ac=0,$automatico=true,$objeto=null,$evento=null){
     return $a;
 }
 function fDialogo($id,$titulo,$contenido,$ancho,$largo,$objeto=null,$evento=null,$animado=0,$modal=0,$efc=0){
-       global $crg;
-       if($crg==0){
-            echo '<script src="nucleo/js/jquery-ui.js" type="text/javascript"></script> ';
-            echo '<link href="nucleo/estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>';
-            $crg=1;
-        }
        $anm=array("blind","bounce","clip","drop","explode","fade","fold","puff","pulsate","shake","slide");
        if($animado!=0 && $modal!=0){
             if($objeto!=null)
@@ -251,12 +232,6 @@ function fOrdenaTabla($id){
 }
 
 function fPestanas($id){
-        global $crg;
-       if($crg==0){
-            echo '<script src="nucleo/js/jquery-ui.js" type="text/javascript"></script> ';
-            echo '<link href="nucleo/estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>';
-            $crg=1;
-        }
         $a= "<script>\$(function(){\$('#".$id."').tabs();});</script><div id='".$id."'>";
         $a.= "<ul>";
         $vari=func_get_args();

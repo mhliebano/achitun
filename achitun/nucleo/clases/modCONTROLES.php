@@ -399,7 +399,10 @@ function fEnviarCorreo($asunto,$mensaje,$desde,$firma,$pie=null,$correo=null,$ms
      $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
      $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
      $cabeceras .= 'From: '.$desde.'\r\n';
-     
+    $cabeceras .= "Return-path: ".$desde." \r\n"; 
+    $cabeceras .= "X-Priority: 1 \r\n";  
+    $cabeceras .= "X-MSMail-Priority: High \r\n";  
+    $cabeceras .= "X-Mailer: PHP/".phpversion()." \n";  
 
     if (depuracion())
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fEnviarCorreo</p></div>";
@@ -892,30 +895,44 @@ function fMostrarRelaciones($tbl){
         $traza.="<div style='background-color:#E5E5E5;margin-bottom:5px'><p style='color:#095909;font-weight: bold'>ModCon: LLamado a la funcion fMostrarRelaciones</p>";
     
         $objBd->fRelaciones();
-        //$relaciones=$objBd->fConsultaArreglo();foreach($relaciones as $t)
+        $ini=null;
+        $indiceY=0;
         while($t=$objBd->fConsultaArreglo()){
-            if($t[0]==$tbl){
-                $rel[]=$t[1];
-                $s.=$tbl.".".$t[1]."=".$t[1].".id AND ";
-            }
-            $tablas[]= $t[0];
-            $relacion[]=$t[1];
-        }
-        $tbl=$rel[0];
-        while (count($rel)!=0){
-            if(in_array($tbl,$tablas)){
-                $x=array_search($tbl,$tablas);
-                $s.=$tablas[$x].".".$relacion[$x]."=".$relacion[$x].".id AND ";
-                unset($tablas[$x]);
-                unset($relacion[$x]);
-                $tablas=array_values($tablas);
-                $relacion=array_values($relacion);
+            if($ini==$t[0]){
+                $indiceY+=1;
+                $panel[$ini][$indiceY]=$t[1];
             }else{
-                unset($rel[0]);
-                $rel=array_values($rel);
-                $tbl=$rel[0];
+                $indiceY=0;
+                $panel[$t[0]][$indiceY]=$t[1];
+                $ini=$t[0];
+                
             }
         }
+        $s="";
+        $lon= count($panel[$tbl]);
+        for($i=0;$i<$lon;$i++){
+            $cola[]=$panel[$tbl][$i];
+            if (depuracion()){
+                $traza.=$tbl.".".$panel[$tbl][$i]."=".$panel[$tbl][$i].".id AND ";
+            }
+            $s.=$tbl.".".$panel[$tbl][$i]."=".$panel[$tbl][$i].".id AND ";
+        }
+        $prima=$tbl;
+        while(count($cola)!=0){
+            if(array_key_exists($cola[0],$panel)){
+                $prima=$cola[0];
+                $lon= count($panel[$prima]);
+                for($i=0;$i<$lon;$i++){
+                    $cola[]=$panel[$prima][$i];
+                    $s.=$prima.".".$panel[$prima][$i]."=".$panel[$prima][$i].".id AND ";
+                    if (depuracion()){
+                        $traza.=$prima.".".$panel[$prima][$i]."=".$panel[$prima][$i].".id AND ";
+                    }
+                }
+            }
+            array_splice($cola,0,1);
+        }
+        return $s;
         if (depuracion()){
             if($s=="")
             $traza.= "<p>Sin relaciones</p></div>";
@@ -1098,40 +1115,28 @@ function fMostrarTablasRelacionadasBD($tbl=null){
     $objBd->fRelaciones();
     
     if($tbl!=null){
-        $s.=$tbl.",";
+        $ini=null;
+        $indiceY=0;
         while($t=$objBd->fConsultaArreglo()){
-            if($t[0]==$tbl){
-                 if (depuracion())
-                    $traza.= $t[0]."-".$t[1]."<br/>";
-                $rel[]=$t[1];
-                $s.=$t[1].",";
-            }
-            $tablas[]= $t[0];
-            $relacion[]=$t[1];
-        }
-        $tbl=$rel[0];
-        while (count($rel)!=0){
-            if(in_array($tbl,$tablas)){
-                $x=array_search($tbl,$tablas);
-                $s.=$relacion[$x].",";
-                unset($tablas[$x]);
-                unset($relacion[$x]);
-                $tablas=array_values($tablas);
-                $relacion=array_values($relacion);
+            if($ini==$t[0]){
+                $indiceY+=1;
+                $panel[$ini][$indiceY]=$t[1];
             }else{
-                unset($rel[0]);
-                $rel=array_values($rel);
-                $tbl=$rel[0];
+                $indiceY=0;
+                $panel[$t[0]][$indiceY]=$t[1];
+                $ini=$t[0];
+                
             }
         }
-        $repa=explode(",",$s);
-        $d=array();
-        $s="";
-        for ($i=0;$i<count($repa)-1;$i++){
-            if(!in_array($repa[$i],$d)){
-                $d[]=$repa[$i];
-                $s.=$repa[$i].",";
+        $s=$tbl;
+        $lon= count($panel[$tbl]);
+        for($i=0;$i<$lon;$i++){
+            $cola[]=$panel[$tbl][$i];
+            $control[]=$panel[$tbl][$i];
+            if (depuracion()){
+                $traza.=$tbl."-".$panel[$tbl][$i]."<br>";
             }
+            $s.=",".$panel[$tbl][$i];
         }
         if (depuracion()){
             $traza.= "<p>$s</p></div>";
@@ -1495,6 +1500,7 @@ function fNuevo($tabla=null,$rel=null,$auto=true,$campos=null,$data=null,$cap=fa
         $tipo[]="none";
     }
     $a.= fCampo("boton","Guardar","submit",null,0,boton1);
+    $a.="<div style='clear:both'></div>";
     $a.= fFinFormulario();
     if (depuracion()){
         for($i=0;$i<count($valido);$i++)
@@ -2124,12 +2130,22 @@ function flog($txt){
     $usu=(fUsuarioID()==0?"Usuario Anonimo":fUsuarioID());
     $txt="{".$usu."}{".$txt."}{".fHoy("Y/m/d H:i:s")."}{".$_SERVER['REMOTE_ADDR']."}{".$_SERVER['HTTP_USER_AGENT']."}\n";
     $archivo=fFechaMysql(fHoy())."log";
-    $p=substr(sprintf('%o', fileperms('nucleo/.log/'.$archivo.'.log')), -4);
-    if($p!=0333){
-        chmod('nucleo/.log/'.$archivo.'.log',0333);
+    if(file_exists('nucleo/.log/'.$archivo.'.log')){
+        $p=substr(sprintf('%o', fileperms('nucleo/.log/'.$archivo.'.log')), -4);
+        if($p!=0333){
+            chmod('nucleo/.log/'.$archivo.'.log',0333);
+        }
+        $fp = fopen('nucleo/.log/'.$archivo.'.log', 'a');
+        fwrite($fp, $txt);
+        fclose($fp);
+    }else{
+        $fp = fopen('nucleo/.log/'.$archivo.'.log', 'a');
+        fwrite($fp, $txt);
+        fclose($fp);
+        $p=substr(sprintf('%o', fileperms('nucleo/.log/'.$archivo.'.log')), -4);
+        if($p!=0333){
+            chmod('nucleo/.log/'.$archivo.'.log',0333);
+        }
     }
-    $fp = fopen('nucleo/.log/'.$archivo.'.log', 'a');
-    fwrite($fp, $txt);
-    fclose($fp);
 }
 ?>

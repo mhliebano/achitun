@@ -138,19 +138,22 @@
     if($_GET['down']!=null){
         fForzaDescarga();
     }
-echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es"><head><title>';
+echo '<!DOCTYPE HTML><head><title>';
 echo $titulo."::".$titulo_modelo;
 echo '</title><link rel="Shortcut Icon" href="conf/img/logo.ico" type="image/x-icon" />
  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
  <meta name="generator" content="Geany 0.19.1" />
  <script src="nucleo/js/jquery-1.9.1.js" type="text/javascript"></script>    
- <script src="nucleo/js/jquery-ui.js" type="text/javascript"></script>    
+ <script src="nucleo/js/jquery-ui.min.js" type="text/javascript"></script>    
  <script src="nucleo/js/jquery.validate.min.js" type="text/javascript"></script>    
  <script src="nucleo/js/jquery-anexos.js" type="text/javascript"></script>    
  <script src="nucleo/js/jQuery.tablefilter.js" type="text/javascript"></script>    
  <script src="nucleo/js/jquery.cycle.all.js" type="text/javascript"></script>    
  <script src="nucleo/js/jquery.tablesorter.min.js" type="text/javascript"></script>
- <script type="text/javascript" src="nucleo/js/nicEdit.js"></script>';
+ <script type="text/javascript" src="nucleo/js/nicEdit.js"></script>
+ <link href="nucleo/estilos/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+ <link href="nucleo/estilos/jquery-ui.structure.min.css" rel="stylesheet" type="text/css"/>
+ <link href="nucleo/estilos/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"/>';
  /*echo '<style> #pre-load-web {width:100%;position:absolute;background:#EDEDED;left:0px;top:0px;z-index:100000} #pre-load-web #imagen-load{left:50%;margin-left:-30px;position:absolute}     </style>';
         echo "<script>".fpreCarga()."</script>";*/
         if(count($estilo)==0){

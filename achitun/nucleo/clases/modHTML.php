@@ -51,11 +51,7 @@ function fCampo($nombre,$etiqueta,$tipo,$valor=null,$protegido=0,$clase=null,$es
                 $a= "<div class='cpoForm'><label>$etiqueta</label><input type='radio' name='$nombre' id='$nombre' value='$valor' style='$estilo' $soloLectura $c/></div>";
                 break;
             case "fecha":
-                if($crg==0){
-                    echo '<script src="nucleo/js/jquery-ui.js" type="text/javascript"></script> ';
-                    echo '<link href="nucleo/estilos/jquery-ui-1.8.21.custom.css" rel="stylesheet" type="text/css"/>';
-                    $crg=1;
-                }
+               
                 $a= "<div class='cpoForm'><label id='etq$nombre'>$etiqueta</label><input type='text' name='$nombre' id='$nombre' value='$valor' class='dateES' $soloLectura style='$estilo'/></div>";
                 $a.= "<script type='text/javascript'>\$(function(){\$('#$nombre').datepicker({dateFormat: 'dd/mm/yy'});});</script>";
                 break;
@@ -260,7 +256,7 @@ function fSelectFormBD($nombre,$etiqueta,$tablas,$campo=null,$seleccion=0,$multi
             else
                 $combo.= "<option value='".$opciones[$x]."' selected>".$opciones[$campo]."</option>";
         }
-    $combo.= "</select></div>";
+    $combo.= "</select></div><script>function ordenarSelect(id_componente){var selectToSort = jQuery('#' + id_componente);var optionActual = selectToSort.val();selectToSort.html(selectToSort.children('option').sort(function (a, b) {return a.text === b.text ? 0 : a.text < b.text ? -1 : 1;})).val(optionActual);}$(document).ready(function () {ordenarSelect('$nombre');});</script>";
     if (depuracion())
         $traza.="</div>";
     return $combo;
