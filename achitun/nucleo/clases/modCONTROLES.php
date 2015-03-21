@@ -1128,15 +1128,29 @@ function fMostrarTablasRelacionadasBD($tbl=null){
                 
             }
         }
-        $s=$tbl;
+        $s="$tbl";
         $lon= count($panel[$tbl]);
         for($i=0;$i<$lon;$i++){
             $cola[]=$panel[$tbl][$i];
-            $control[]=$panel[$tbl][$i];
             if (depuracion()){
                 $traza.=$tbl."-".$panel[$tbl][$i]."<br>";
             }
             $s.=",".$panel[$tbl][$i];
+        }
+        $prima=$tbl;
+        while(count($cola)!=0){
+            if(array_key_exists($cola[0],$panel)){
+                $prima=$cola[0];
+                $lon= count($panel[$prima]);
+                for($i=0;$i<$lon;$i++){
+                    $cola[]=$panel[$prima][$i];
+                    $s.=",".$panel[$prima][$i];
+                    if (depuracion()){
+                        $traza.=$prima."-".$panel[$prima][$i]."<br>";
+                    }
+                }
+            }
+            array_splice($cola,0,1);
         }
         if (depuracion()){
             $traza.= "<p>$s</p></div>";
